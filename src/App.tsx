@@ -1,32 +1,22 @@
 import styles from "./App.module.css";
-import { useSelector, useDispatch } from "react-redux";
-import { deposit, withdraw, setAmount } from "./features/bank/bankSlice";
-import type { RootState } from "./store/store";
+import { useDispatch } from "react-redux";
+import { fetchData } from "./features/api/apiSlice";
+import type { AppDispatch } from "./store/store";
+import { useEffect } from "react";
+import Bank from "./components/Bank";
+import APIData from "./components/APIData";
+
 const App = () => {
-  const { balance, amount } = useSelector((state: RootState) => state.bank);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    dispatch(fetchData())
+  }, [dispatch])
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.card}>
-        <h1 className={styles.title}>🏦 My Bank</h1>
-        <p className={styles.balance}>Balance: ₹{balance.toFixed(2)}</p>
-        <input
-          className={styles.input}
-          type="number"
-          value={amount}
-          placeholder="Enter amount"
-          onChange={(e) => dispatch(setAmount(Number(e.target.value)))}
-        />
-        <div className={styles.buttons}>
-          <button className={styles.depositBtn} onClick={() => dispatch(deposit())}>
-            Deposit
-          </button>
-          <button className={styles.withdrawBtn} onClick={() => dispatch(withdraw())}>
-            Withdraw
-          </button>
-        </div>
-      </div>
+      <Bank />
+      <APIData />      
     </div>
   );
 };
