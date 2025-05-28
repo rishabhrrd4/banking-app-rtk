@@ -1,5 +1,5 @@
-import { configureStore } from "@reduxjs/toolkit";
-import bankReducer from "../features/bank/bankSlice";
+import { configureStore } from "@reduxjs/toolkit"
+import bankReducer from "../features/bank/bankSlice"
 
 const store = configureStore({
     reducer: {
@@ -10,4 +10,4 @@ const store = configureStore({
 export default store
 
 export type RootState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch
+export type AppDispatch = typeof store.dispatch 
